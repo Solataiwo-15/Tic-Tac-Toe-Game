@@ -71,10 +71,11 @@ const winChecker = () => {
         ]
         //check if elements are filled
         //if 3 empty elements are same and would give win as would
-        if (element1 != '' && (element2 != '') && (element3 != '')) {
+        if (element1 != '' && element2 != '' && (element3 != '')) {
             if (element1 === element2 && element2 === element3) {
                 //if all 3 buttons have same value to win, then pass the value to winFunction
                 winFunction(element1, i)
+                return
             }
         }
     }
@@ -206,7 +207,7 @@ btnRef.forEach((element) => {
         if (winChecker()) return; // Check if player won
         if (count === 9) drawFunction(); // Check for draw
 
-        setTimeout(aiMove, 500); // Delay AI move for realism
+        setTimeout(aiMove, 200); // Delay AI move for realism
         xTurn = true; // Switch turn back to player
     })   
 })

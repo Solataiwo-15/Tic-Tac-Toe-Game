@@ -51,6 +51,7 @@ html {
     position: relative;
     margin: 1em auto 0 auto;
     display: block;
+    cursor: pointer;
 }
 
 .popup {
@@ -140,6 +141,7 @@ html {
         font-size: 0.8em;
         padding: 0.6em 1.2em;
         border-radius: 10px;
+        cursor: pointer;
     }
 
     #message {
