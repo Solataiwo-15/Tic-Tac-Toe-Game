@@ -1,7 +1,7 @@
 ### Links
 
-- Solution URL: [Solution](https://github.com/Solataiwo-15/Simple-To-do-List-Web-App)
-- Live Site URL: [Live Site](https://simple-to-do-list-web-app-pi.vercel.app/)
+- Solution URL: [Solution](https://github.com/Solataiwo-15/Tic-Tac-Toe-Game)
+- Live Site URL: [Live Site](https://tic-tac-toe-game-delta-five-65.vercel.app/)
 
 
 ### Built with

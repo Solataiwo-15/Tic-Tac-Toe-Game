@@ -6,14 +6,9 @@ let msgRef = document.getElementById('message')
 
 //Winning Pattern Array
 let winningPattern = [
-    [0, 1, 2],
-    [0, 3, 6],
-    [2, 5, 8],
-    [6, 7, 8],
-    [3, 4, 5],
-    [1, 4, 7],
-    [0, 4, 8],
-    [2, 4, 6],
+    [0, 1, 2], [6, 7, 8], [3, 4, 5], //Rows
+    [0, 3, 6], [2, 5, 8], [1, 4, 7], //Columns
+    [0, 4, 8], [2, 4, 6],            //Diagonals
 ]
 
 //Player 'X' plays first
@@ -38,12 +33,13 @@ const  enableButtons = () => {
 }
 
 //this funtion is executed when a player wins
-const winFunction = (letter) => {
+const winFunction = (letter, winningCells) => {
     disableButtons()
+       //popup message for win
     if (letter == 'X') {
         msgRef.innerHTML = `&#x1F389 <br> 'X' Wins`
     } else {
-        msgRef.innerHTML = `&#x1F389' <br> 'O' Win`
+        msgRef.innerHTML = `&#x1F389 <br> 'O' Win`
     } 
 }
 
@@ -64,9 +60,9 @@ restartBtn.addEventListener('click', () => {
     enableButtons()
 })
 
-//win logic 
+//win Checker logic 
 const winChecker = () => {
-    //Loop through all win patterns
+    //Look through all win patterns
     for (let i of winningPattern) {
         let [element1, element2, element3] = [
             btnRef[i[0]].innerText,
@@ -75,10 +71,10 @@ const winChecker = () => {
         ]
         //check if elements are filled
         //if 3 empty elements are same and would give win as would
-        if (element1 != '' && (element2 != '') & (element3 != '')) {
-            if (element1 == element2 && element2 == element3) {
-                //if all 3 buttons have same value to win  then pass the value to winFunction
-                winFunction(element1)
+        if (element1 != '' && (element2 != '') && (element3 != '')) {
+            if (element1 === element2 && element2 === element3) {
+                //if all 3 buttons have same value to win, then pass the value to winFunction
+                winFunction(element1, i)
             }
         }
     }
