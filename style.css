@@ -73,6 +73,7 @@ html {
     background-color: #0a0027;
     color: #ffffff;
     border: none;
+    border-radius: 10px;
 }
 
 #message {
@@ -138,9 +139,10 @@ html {
     #new-game {
         font-size: 0.8em;
         padding: 0.6em 1.2em;
+        border-radius: 10px;
     }
 
     #message {
-        font-size: 1.1em;
+        font-size: 0.8em;
     }
 }
