@@ -86,6 +86,18 @@ html {
 }
 
 @media screen and (max-width: 480px) {
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+        height: none;
+        background: linear-gradient(135deg, #9998f1, #a0f7a0 );
+    }
+
     html {
         font-size: 14px;  /* Adjust base font size for smaller screens */
     }
@@ -95,24 +107,26 @@ html {
     } */
 
     .container {
-        width: 80vmin;
-        height: 80vmin;
-        gap: 2vmin;
+        width: 90vmin;
+        height: 90vmin;
+        gap: 1.5vmin;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .button-option {
-        width: 24vmin;
-        height: 24vmin;
+        width: 27vmin;
+        height: 27vmin;
         font-size: 10vmin; 
     }
 
     #restart {
-        font-size: 1em;
+        margin-top: 1em;
+        font-size: 1.1em;
         padding: 0.8em;
-        width: 30%;
+        width: 80%;
+        text-align: center;
     }
 
     .popup {
