@@ -11,9 +11,8 @@ let winningPattern = [
     [0, 4, 8], [2, 4, 6],            //Diagonals
 ]
 
-//Player 'X' plays first
-let xTurn = true
-let count = 0
+let xTurn = true //Player 'X' plays first
+let count = 0    //Move counter
 
 //disbale all buttons
 const disableButtons = () => {
@@ -30,10 +29,11 @@ const  enableButtons = () => {
     })
     //disable popup
     popupRef.classList.add('hide')
+    xTurn = true //reset turn to player
 }
 
 //this funtion is executed when a player wins
-const winFunction = (letter, winningCells) => {
+const winFunction = (letter) => {
     disableButtons()
        //popup message for win
     if (letter == 'X') {
@@ -80,6 +80,105 @@ const winChecker = () => {
     }
 }
 
+//AI Move (Easy Mode)
+// const aiMove = () => {
+//     let emptyCells = []
+//     //get all empty buttons
+//     btnRef.forEach((btn, index) => {
+//         if (btn.innerText == '') emptyCells.push(index)
+//     })
+//     //get random number from empty cells
+//     if (emptyCells.length > 0) {
+//         let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+//         //display O on random cell
+//         btnRef[randomIndex].innerHTML = 'O'
+//         btnRef[randomIndex].disabled = true
+//         //increment count on each click
+//         count++
+
+//         if (winChecker()) return //Check for win after AI move
+//         if (count === 9) {drawFunction()} //Check for draw after AI move
+//     }
+// }
+
+// AI Move - Intermediate Level
+const aiMove = () => {
+    let bestMove = null;
+
+    // 1. Check if AI can win this turn
+    for (let pattern of winningPattern) {
+        let [a, b, c] = pattern;
+        if (btnRef[a].innerText === "O" && btnRef[b].innerText === "O" && btnRef[c].innerText === "") {
+            bestMove = c;
+            break;
+        }
+        if (btnRef[a].innerText === "O" && btnRef[c].innerText === "O" && btnRef[b].innerText === "") {
+            bestMove = b;
+            break;
+        }
+        if (btnRef[b].innerText === "O" && btnRef[c].innerText === "O" && btnRef[a].innerText === "") {
+            bestMove = a;
+            break;
+        }
+    }
+
+    // 2. Block opponent from winning
+    if (bestMove === null) {
+        for (let pattern of winningPattern) {
+            let [a, b, c] = pattern;
+            if (btnRef[a].innerText === "X" && btnRef[b].innerText === "X" && btnRef[c].innerText === "") {
+                bestMove = c;
+                break;
+            }
+            if (btnRef[a].innerText === "X" && btnRef[c].innerText === "X" && btnRef[b].innerText === "") {
+                bestMove = b;
+                break;
+            }
+            if (btnRef[b].innerText === "X" && btnRef[c].innerText === "X" && btnRef[a].innerText === "") {
+                bestMove = a;
+                break;
+            }
+        }
+    }
+
+    // 3. Pick the best available move (Center > Corners > Sides)
+    if (bestMove === null) {
+        if (btnRef[4].innerText === "") {
+            bestMove = 4; // Center
+        } else {
+            const corners = [0, 2, 6, 8];
+            const sides = [1, 3, 5, 7];
+
+            for (let i of corners) {
+                if (btnRef[i].innerText === "") {
+                    bestMove = i;
+                    break;
+                }
+            }
+
+            if (bestMove === null) {
+                for (let i of sides) {
+                    if (btnRef[i].innerText === "") {
+                        bestMove = i;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // Play AI move
+    if (bestMove !== null) {
+        btnRef[bestMove].innerText = "O";
+        btnRef[bestMove].disabled = true;
+        count++;
+
+        // Check for a win
+        winChecker();
+    }
+};
+
+
 //display X/O on click
 btnRef.forEach((element) => {
     element.addEventListener('click', () => {
@@ -88,19 +187,27 @@ btnRef.forEach((element) => {
             //display X
             element.innerText = 'X'
             element.disabled = true
-        } else {
-            xTurn = true
-            //display O
-            element.innerText = 'O'
-            element.disabled = true
+            count++
         }
+        // } else {
+        //     xTurn = true
+        //     //display O
+        //     element.innerText = 'O'
+        //     element.disabled = true
+        // }
+
         //increment count on each click
-        count += 1
-        if(count === 9) {
-            drawFunction()
-        }
-        //checker for win on every click
-        winChecker()
+        // count += 1
+        // if(count === 9) {
+        //     drawFunction()
+        // }
+        // //checker for win on every click
+        // winChecker()
+        if (winChecker()) return; // Check if player won
+        if (count === 9) drawFunction(); // Check for draw
+
+        setTimeout(aiMove, 500); // Delay AI move for realism
+        xTurn = true; // Switch turn back to player
     })   
 })
 
