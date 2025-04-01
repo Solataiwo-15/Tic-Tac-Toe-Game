@@ -39,7 +39,7 @@ const winFunction = (letter) => {
     if (letter == 'X') {
         msgRef.innerHTML = `&#x1F389 <br> 'X' Wins`
     } else {
-        msgRef.innerHTML = `&#x1F389 <br> 'O' Win`
+        msgRef.innerHTML = `&#x1F389 <br> 'O' Wins`
     } 
 }
 
